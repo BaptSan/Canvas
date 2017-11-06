@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Canvas Test !</title>
+<style>
+
+</style>
+
+</head>
+<body>
+<script
+ src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+<canvas id="myCanvas" width="600" height="400"
+style="border:1px solid #000000;">
+</canvas>
+<script>
+	var dernierX = 0;
+	var dernierY = 0;
+	var c = document.getElementById('myCanvas');
+	c.width = $('#myCanvas').width();
+	c.height = $('#myCanvas').height();
+
+$(window).resize(function () {
+	var c = document.getElementById('myCanvas');
+	c.width = $('#myCanvas').width();
+	c.height = $('#myCanvas').height();
+});
+
+$('#myCanvas').mousemove(function() {
+
+	var c = document.getElementById('myCanvas');
+	var ctx = c.getContext("2d");
+	ctx.moveTo(dernierX, dernierY);
+	ctx.lineTo(event.clientX, event.clientY);
+	ctx.strokeStyle = 'red';
+	ctx.lineWidth = 5;
+	ctx.stroke();
+	dernierX = event.clientX; 
+	dernierY = event.clientY;
+});
+
+</script>
+
+</body>
+</html>
