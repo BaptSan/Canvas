@@ -28,9 +28,12 @@ $(window).resize(function () {
 	c.width = $('#myCanvas').width();
 	c.height = $('#myCanvas').height();
 });
+myMouse = false;
+
+/*Fonction de dessin*/
 
 $('#myCanvas').mousemove(function() {
-
+		if (myMouse === true) {
 	var c = document.getElementById('myCanvas');
 	var ctx = c.getContext("2d");
 	ctx.moveTo(dernierX, dernierY);
@@ -40,8 +43,36 @@ $('#myCanvas').mousemove(function() {
 	ctx.stroke();
 	dernierX = event.clientX; 
 	dernierY = event.clientY;
-});
+}});
 
+/*fin de fonction de dessin*/
+
+/*fonction de dessin au niveau du click*/
+
+$('#myCanvas').mousedown(function() {
+	path = [];
+	myMouse = true;
+	console.log('test');
+	dernierX = event.clientX; 
+	dernierY = event.clientY;
+})
+$('#myCanvas').mouseup(function() {
+	myMouse = false;
+	console.log('test');
+})
+
+/*fin de fonction de dessin au niveau du click*/
+/*focntion envoie donnes tableau*/
+
+function clickbtn() {
+	$.ajax({
+		url : 'http://draw.api.niamor.com/help',
+		method : POST,
+		data : data,
+		});
+}
+
+/*fin de focntion envoie donnes tableau*/
 </script>
 
 </body>
