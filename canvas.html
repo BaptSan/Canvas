@@ -47,7 +47,9 @@ $('#myCanvas').mousemove(function() {
 }})
 
 /*fin de fonction de dessin*/
-
+function afficherLesChemins(mesChemins){
+console.log(mesChemins[1].path);
+}
 /*fonction de dessin au niveau du click*/
 
 $('#myCanvas').mousedown(function() {
@@ -59,21 +61,31 @@ $('#myCanvas').mousedown(function() {
 $('#myCanvas').mouseup(function() {
 	myMouse = false;
 	var data = {
-	path: path
+	path: path,
+	strokeColor:'#1807b2',
+	lineWidth:5
 	}
 	$.ajax({
 		url : 'http://draw.api.niamor.com/paths/add',
 		method : 'POST',
-		data: data
+		data: data,
 		});
-});
+	$.ajax({
+		url: 'http://draw.api.niamor.com/paths',
+		method: 'post',
+		data:{
+			lastId: 0,
+		}
+	}).done(afficherLesChemins);
+} 
+);
+
 
 /*fin de fonction de dessin au niveau du click*/
-/*focntion envoie donnes tableau*/
 
 
 
-/*fin de focntion envoie donnes tableau*/
+
 </script>
 
 </body>
