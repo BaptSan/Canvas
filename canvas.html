@@ -29,6 +29,7 @@ $(window).resize(function () {
 	c.height = $('#myCanvas').height();
 });
 myMouse = false;
+myLastId = 0;
 
 /*Fonction de dessin*/
 
@@ -38,7 +39,7 @@ $('#myCanvas').mousemove(function() {
 	var ctx = c.getContext("2d");
 	ctx.moveTo(dernierX, dernierY);
 	ctx.lineTo(event.clientX, event.clientY);
-	ctx.strokeStyle = 'red';
+	ctx.strokeStyle = '#1807b2';
 	ctx.lineWidth = 5;
 	ctx.stroke();
 	dernierX = event.clientX; 
@@ -47,9 +48,25 @@ $('#myCanvas').mousemove(function() {
 }})
 
 /*fin de fonction de dessin*/
+/*Fonction réception de données*/
+
 function afficherLesChemins(mesChemins){
-console.log(mesChemins[1].path);
+	var ctx = c.getContext("2d");
+	for ( i = 0; i < mesChemins.length; i++) {
+		mesChemins[i].strokeColor;
+		mesChemins[i].lineWidth;
+		ctx.beginPath();
+			for ( j = 0 ; j < mesChemins[i].path.length ; j++) {
+				recDonnesX = mesChemins[i].path[j][0];
+				recDonnesY = mesChemins[i].path[j][1];
+				ctx.lineTo(recDonnesX,recDonnesY);
+				
+		}
+		myLastId=mesChemins[i].id;
+	}
 }
+
+/*Fin de Fonction réception de données*/
 /*fonction de dessin au niveau du click*/
 
 $('#myCanvas').mousedown(function() {
@@ -74,7 +91,7 @@ $('#myCanvas').mouseup(function() {
 		url: 'http://draw.api.niamor.com/paths',
 		method: 'post',
 		data:{
-			lastId: 0,
+			lastId: myLastId
 		}
 	}).done(afficherLesChemins);
 } 
